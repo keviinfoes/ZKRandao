@@ -1,5 +1,5 @@
 # ZKRandao
-A randao implementation for RNG (random number generator). It is NOT anonymous, but ZK-snarks are used in RNG proces.
+A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity.
 
 # Other randao implementations
 Randao is an implementation of a RNG generator, as the name shows it is implemented as DAO on a blockchain. 
