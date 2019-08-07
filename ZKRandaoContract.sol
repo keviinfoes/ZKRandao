@@ -586,6 +586,7 @@ contract ZKRandao {
         vk.gamma_abc[3] = Pairing.G1Point(uint256(0x00a52ae0313db49f8923d96fc2222e6b5a88de516724c70175a9f6c6dcae4ae2), uint256(0x25d9cb1077e4ae5efb2063511968f463a5942829ae686d0f423ad8f5ab622e36));
         vk.gamma_abc[4] = Pairing.G1Point(uint256(0x15606feb512326d7ca65eeb0d5a588eac7b6f7b5a50bed953d72a48b2cd5437d), uint256(0x2a78fda4ea4ea763a917c8faffe777af774ecf4ae39f5c3759550b649816d86e));
     }
+    
     function verify(uint[] memory input, Proof memory proof) internal returns (uint) {
         uint256 snark_scalar_field = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
         VerifyingKey memory vk = verifyingKey();
@@ -604,6 +605,43 @@ contract ZKRandao {
              Pairing.negate(vk.a), vk.b)) return 1;
         return 0;
     }
+    
+    function verifyingKeyReveal() pure internal returns (VerifyingKey memory vk) {
+        vk.a = Pairing.G1Point(uint256(0x043401c5ee5b62fdf22fd95d42fc758a30bca9163cbb24f6655375e4af83663f), uint256(0x1901c4fabd1ca1879a33b8070b032c6baaae4b41c1df5c8ce53a539fdf936ec5));
+        vk.b = Pairing.G2Point([uint256(0x00007d74983f8e5fc887dde012cd95cc9532598086cd7187830496f9bae1c717), uint256(0x28ac84d74909b95d722e09384c9df23198599eebfc418cbf760ad9346413ebc2)], [uint256(0x266d9a84ead995d169a6ebe7625a71ecb8490b6258319b1bb47cbeb2d707a448), uint256(0x16c0f62b09eabcb6efe2574122d29ecb5b55b11cae202e5eda33de3c624758b0)]);
+        vk.gamma = Pairing.G2Point([uint256(0x2912d5a60bae070ef16ac1cc4d8598b09f525501056cdd10ff7f3d83097cbd9c), uint256(0x17de3d8425ddec48292fbd5f3af6a0df9684e4d378b44b06f87e1b19af6b1773)], [uint256(0x0eb671703b14ad037b9e560a20b1507528b3475a7ba25f4ee624d38015172b0f), uint256(0x24d1c9a2b07a0a573303a9db0f9a9eb53841210b0fc609f3fed1bf837116ca7c)]);
+        vk.delta = Pairing.G2Point([uint256(0x0864a1405b561658092e9efbffea4b081c7d44e3424c0f9786a335423076d686), uint256(0x1a48ee60357052b319f9200995af7715b592b64881b234a557adf1bce50c1692)], [uint256(0x12c3ac79219a9f24ecd6b7412bedf15e62ff8c2a33b8cbf5f99a451e6819a9c7), uint256(0x15a179ebc2cdb39e46d21fb9564f17818bcad8672cd0f00da2d0894fb2519524)]);
+        vk.gamma_abc = new Pairing.G1Point[](9);
+        vk.gamma_abc[0] = Pairing.G1Point(uint256(0x14c75dc62ae69b6884b6bc09dc0dc656c6ab3d459fe4284d921bc1fe40374eb6), uint256(0x1b1a74383292ac1b7e53d01a157e12c67d5d25b44a41efaa377bcbbf5c31e93e));
+        vk.gamma_abc[1] = Pairing.G1Point(uint256(0x232df4c5feff96ac01f7077707b1a19b2b948950243b515bcaa3e8c742526451), uint256(0x26da4e827d5fd4c3e5145c533080aef205a34a1f0750c15312e48ec0b8627975));
+        vk.gamma_abc[2] = Pairing.G1Point(uint256(0x2290c89ed0735461c7fed7cf253b8b836a06793ef916ebb2cba8ea10ef786d8c), uint256(0x2d7de529d05d7882e6c02755fae6b2b74ae85d95386d2c5c0956ec2ead8b4643));
+        vk.gamma_abc[3] = Pairing.G1Point(uint256(0x115de1bf092ebc79ee50e56456ce0727f6d922b1eb3fbfed6e43ae05c2de4505), uint256(0x2fab2b4742948444bde3dd4aba5f230b0d7366a7b5cfff0ec74e185f3659da2c));
+        vk.gamma_abc[4] = Pairing.G1Point(uint256(0x29040c401cce2527743f94c635cb7c1e6ef1471ede188512d534380f23569a10), uint256(0x01128b91b73d940acdb0b4619ab355f66f7e9916e4607a026d222a8b45a118e2));
+        vk.gamma_abc[5] = Pairing.G1Point(uint256(0x2de173057828b8a63f9dc30f2880ebb8aa9a649efb1617e019f0ef1f9509920e), uint256(0x04981c0522c91c2da4cfea1ce0019cb53f9f98f31107dea906dca57bc562b992));
+        vk.gamma_abc[6] = Pairing.G1Point(uint256(0x276efa0a0dc2058539da3f4a2f15d5039c45f11d470e868e9f80729fc2b325ec), uint256(0x02a9c3dea33696112565b416dfe894a1e7ab908156c9cf994b1ee2336cca2c71));
+        vk.gamma_abc[7] = Pairing.G1Point(uint256(0x176ed197ffc696082741b31003736da11a9825644234cd7b8255cc4733d4a748), uint256(0x09682219228fc10015706fb16402bbb6a6eb6ff58831d3592d4d3f49b4fe56a6));
+        vk.gamma_abc[8] = Pairing.G1Point(uint256(0x10278185d16d498a7df669473a76966bea7909631afacdeb70ae651350f02d45), uint256(0x136268de10c2fdf84d4e92e7f4622da086aeb2e20db551498beb426cc95a6b07));
+    }
+    
+    function verifyReveal(uint[] memory input, Proof memory proof) internal returns (uint) {
+        uint256 snark_scalar_field = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
+        VerifyingKey memory vk = verifyingKeyReveal();
+        require(input.length + 1 == vk.gamma_abc.length);
+        // Compute the linear combination vk_x
+        Pairing.G1Point memory vk_x = Pairing.G1Point(0, 0);
+        for (uint i = 0; i < input.length; i++) {
+            require(input[i] < snark_scalar_field);
+            vk_x = Pairing.addition(vk_x, Pairing.scalar_mul(vk.gamma_abc[i + 1], input[i]));
+        }
+        vk_x = Pairing.addition(vk_x, vk.gamma_abc[0]);
+        if(!Pairing.pairingProd4(
+             proof.a, proof.b,
+             Pairing.negate(vk_x), vk.gamma,
+             Pairing.negate(proof.c), vk.delta,
+             Pairing.negate(vk.a), vk.b)) return 1;
+        return 0;
+    }
+    
    
 //  Submit function for the secrets -> first checks proof then stores secret meta data
     event Verified(string s);
@@ -652,9 +690,8 @@ contract ZKRandao {
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
-            uint[4] memory input,
-            uint blocknumber,
-            uint secret)
+            uint[8] memory input,
+            uint blocknumber)
         public returns (bool r) {
         
         Proof memory proof;
@@ -665,16 +702,16 @@ contract ZKRandao {
         for(uint i = 0; i < input.length; i++){
             inputValues[i] = input[i];
         }
-        if (verify(inputValues, proof) == 0) {
+        if (verifyReveal(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
             
             //Code storing the secret
             if(Secrets[blocknumber].pending == true){
-            if(Secrets[blocknumber].range == input[2]){
-            if(Secrets[blocknumber].hash1 == input[0]){
-            if(Secrets[blocknumber].hash2 == input[1]){
-            Secrets[blocknumber].secret = secret;
-            emit SecretShared(secret);
+            if(Secrets[blocknumber].range == input[6]){
+            if(Secrets[blocknumber].hash1 == input[4]){
+            if(Secrets[blocknumber].hash2 == input[5]){
+            Secrets[blocknumber].secret = input[3];
+            emit SecretShared(Secrets[blocknumber].secret);
             
             return true;
             }}}} //Close the if statements checks
