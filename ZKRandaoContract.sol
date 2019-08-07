@@ -561,7 +561,6 @@ contract ZKRandao {
         uint hash1;
         uint hash2;
         bool pending;
-        uint blocknumber;
     }    
     
     // Mapping for the secrets
@@ -570,6 +569,7 @@ contract ZKRandao {
     mapping(uint => bool) public CheckHash;
     
     uint constant public ExpRange = 1000;  //To adjust based on range calculations
+    bytes32 public check;
     
     //Testing JS VM only
     uint public indexSecrets;
@@ -612,8 +612,7 @@ contract ZKRandao {
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
-            uint[4] memory input
-        )
+            uint[4] memory input)
         public returns (bool r) {
         uint blocknumber = block.number;
         if (NonEmpty[blocknumber] == false) {
@@ -634,7 +633,7 @@ contract ZKRandao {
             
             //Code storing the secret meta data
             NonEmpty[blocknumber] = true;
-            Secrets[blocknumber] = secrets({secret: 0, range: input[2], hash1: input[0], hash2: input[1], pending: true, blocknumber: blocknumber});
+            Secrets[blocknumber] = secrets({secret: 0, range: input[2], hash1: input[0], hash2: input[1], pending: true});
             CheckHash[input[0]] = true;
             CheckHash[input[1]] = true;
             
@@ -649,7 +648,24 @@ contract ZKRandao {
     }
 
 //  Reveal function for the secrets -> checks if there is a secret then stores secret    
+    event SecretShared(uint secret);
     //function revealRNG(
+    //  uint secret,
+    //  uint blocknumber)
+    //  public returns (bool r) {
+    //  if (Secrets[blocknumber]. 
+   
+    //   return true;
+    //}
+    
+    
+//  Function TEST check hash Function
+    function sha256Check(
+        bytes memory secret)
+        public returns (bool r) {
+        check = sha256(secret);
+        return true;
+    }
     
     
 }
