@@ -11,4 +11,4 @@ Enforcing the reveil can by done by the following steps (ZKRandao implementation
 
 Based on this implementation every participant is incentivized to participate and to reveal the valid s within a limit of blocks and the reveil of s is certain.
 
-For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY) for the medium article I wrote.
+For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY).
