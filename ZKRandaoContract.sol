@@ -569,7 +569,6 @@ contract ZKRandao {
     mapping(uint => bool) public CheckHash;
     
     uint constant public ExpRange = 1000;  //To adjust based on range calculations
-    bytes32 public check;
     
     //Testing JS VM only
     uint public indexSecrets;
@@ -649,23 +648,40 @@ contract ZKRandao {
 
 //  Reveal function for the secrets -> checks if there is a secret then stores secret    
     event SecretShared(uint secret);
-    //function revealRNG(
-    //  uint secret,
-    //  uint blocknumber)
-    //  public returns (bool r) {
-    //  if (Secrets[blocknumber]. 
-   
-    //   return true;
-    //}
-    
-    
-//  Function TEST check hash Function
-    function sha256Check(
-        bytes memory secret)
+    function revealRNG(
+            uint[2] memory a,
+            uint[2][2] memory b,
+            uint[2] memory c,
+            uint[4] memory input,
+            uint blocknumber,
+            uint secret)
         public returns (bool r) {
-        check = sha256(secret);
-        return true;
+        
+        Proof memory proof;
+        proof.a = Pairing.G1Point(a[0], a[1]);
+        proof.b = Pairing.G2Point([b[0][0], b[0][1]], [b[1][0], b[1][1]]);
+        proof.c = Pairing.G1Point(c[0], c[1]);
+        uint[] memory inputValues = new uint[](input.length);
+        for(uint i = 0; i < input.length; i++){
+            inputValues[i] = input[i];
+        }
+        if (verify(inputValues, proof) == 0) {
+            emit Verified("Transaction successfully verified.");
+            
+            //Code storing the secret
+            if(Secrets[blocknumber].pending == true){
+            if(Secrets[blocknumber].range == input[2]){
+            if(Secrets[blocknumber].hash1 == input[0]){
+            if(Secrets[blocknumber].hash2 == input[1]){
+            Secrets[blocknumber].secret = secret;
+            emit SecretShared(secret);
+            
+            return true;
+            }}}} //Close the if statements checks
+        
+        } else {
+            return false;
+        } 
     }
-    
-    
+
 }
