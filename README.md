@@ -13,3 +13,8 @@ Based on this implementation every participant is incentivized to participate an
 
 For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY).
 
+# Instructions ZKRandao implementation
+This repository contains an implementation of ZKRandao. Perform these steps to set upt your own ZKRandao contract.
+
+-- TO ADD --
+
