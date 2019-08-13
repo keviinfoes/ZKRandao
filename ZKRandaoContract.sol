@@ -1,4 +1,4 @@
-// This file is LGPL3 Licensed
+ // This file is LGPL3 Licensed
 
 /**
  * @title Elliptic curve operations on twist points for alt_bn128
@@ -645,7 +645,7 @@ contract ZKRandao {
    
 //  Submit function for the secrets -> first checks proof then stores secret meta data
     event Verified(string s);
-    function submitRNG(
+    function submitRN(
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
@@ -681,12 +681,12 @@ contract ZKRandao {
             return true;
         } else {
             return false;
-        }}}}} //Close the if statements checks
+        }}}}} //Close the if statements 
     }
 
 //  Reveal function for the secrets -> checks if there is a secret then stores secret    
     event SecretShared(uint secret);
-    function revealRNG(
+    function revealRN(
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
@@ -714,7 +714,7 @@ contract ZKRandao {
             emit SecretShared(Secrets[blocknumber].secret);
             
             return true;
-            }}}} //Close the if statements checks
+            }}}} //Close the if statements
         
         } else {
             return false;
