@@ -709,8 +709,7 @@ contract ZKRandao {
         for(uint i = 0; i < input.length; i++){
             inputValues[i] = input[i];
         }
-        assert(Secrets[blocknumber].accountSubmit == msg.sender && block.number - blocknumber >= RevealRangeSubmitter);
-        assert(Secrets[blocknumber].accountSubmit != msg.sender && block.number - blocknumber >= RevealRangeOther);
+        assert(Secrets[blocknumber].accountSubmit == msg.sender && block.number - blocknumber >= RevealRangeSubmitter || Secrets[blocknumber].accountSubmit != msg.sender && block.number - blocknumber >= RevealRangeOther);
         
         if (verifyReveal(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
