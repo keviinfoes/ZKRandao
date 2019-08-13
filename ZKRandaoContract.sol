@@ -572,9 +572,12 @@ contract ZKRandao {
     uint public indexReaveledSecrets;
     mapping(uint => uint) public RevealedSecrets;
     
+    //Change bounderies for optimized between liveness and integrity of randomness
     uint constant public ExpRange = 1000;  //To adjust based on range calculations
+    uint constant public RevealRangeSubmitter = 2;
+    uint constant public RevealRangeOther = 3;
     
-    //Testing JS VM only
+    //Testing JS VM variables
     uint public indexSecrets;
     mapping(uint => uint) public Blocknumber;
     
@@ -706,6 +709,9 @@ contract ZKRandao {
         for(uint i = 0; i < input.length; i++){
             inputValues[i] = input[i];
         }
+        assert(Secrets[blocknumber].accountSubmit == msg.sender && block.number - blocknumber >= RevealRangeSubmitter);
+        assert(Secrets[blocknumber].accountSubmit != msg.sender && block.number - blocknumber >= RevealRangeOther);
+        
         if (verifyReveal(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
             
