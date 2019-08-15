@@ -573,9 +573,9 @@ contract ZKRandao {
     mapping(uint => uint) public RevealedSecrets;
     
     //Change bounderies for optimized between liveness and integrity of randomness
-    uint constant public ExpRange = 1000;  //To adjust based on range calculations
-    uint constant public RevealRangeSubmitter = 2;
-    uint constant public RevealRangeOther = 3;
+    uint constant public ExpRange = 22500000000000000000000;  
+    uint constant public RevealRangeSubmitter = 7; //Blocktime ropsten around 20 seconds -> 7 blocks is 140 seconds < 180 seconds
+    uint constant public RevealRangeOther = 9; // 9 blocks is 180 seconds = estimate secret calculation by bitcoin mining pool hashrate
 
     //Info for blocknumbers
     uint public indexSecrets;
