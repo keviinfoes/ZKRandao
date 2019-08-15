@@ -561,16 +561,23 @@ contract ZKRandao {
         uint hash1;
         uint hash2;
         bool pending;
+        address accountSubmit;
+        address accountReveal;
     }    
     
     // Mapping for the secrets
     mapping(uint => secrets) public Secrets;
     mapping(uint => bool) public NonEmpty;
     mapping(uint => bool) public CheckHash;
+    uint public indexReaveledSecrets;
+    mapping(uint => uint) public RevealedSecrets;
     
+    //Change bounderies for optimized between liveness and integrity of randomness
     uint constant public ExpRange = 1000;  //To adjust based on range calculations
-    
-    //Testing JS VM only
+    uint constant public RevealRangeSubmitter = 2;
+    uint constant public RevealRangeOther = 3;
+
+    //Info for blocknumbers
     uint public indexSecrets;
     mapping(uint => uint) public Blocknumber;
     
@@ -645,7 +652,7 @@ contract ZKRandao {
    
 //  Submit function for the secrets -> first checks proof then stores secret meta data
     event Verified(string s);
-    function submitRNG(
+    function submitRN(
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
@@ -670,7 +677,7 @@ contract ZKRandao {
             
             //Code storing the secret meta data
             NonEmpty[blocknumber] = true;
-            Secrets[blocknumber] = secrets({secret: 0, range: input[2], hash1: input[0], hash2: input[1], pending: true});
+            Secrets[blocknumber] = secrets({secret: 0, range: input[2], hash1: input[0], hash2: input[1], pending: true, accountSubmit: msg.sender, accountReveal: 0x0000000000000000000000000000000000000000});
             CheckHash[input[0]] = true;
             CheckHash[input[1]] = true;
             
@@ -678,15 +685,17 @@ contract ZKRandao {
             Blocknumber[indexSecrets] = block.number;
             indexSecrets += 1;
             
+            //Send reward to submitter
+            msg.sender.transfer(1000000000000000);
             return true;
         } else {
             return false;
-        }}}}} //Close the if statements checks
+        }}}}} //Close the if statements 
     }
 
 //  Reveal function for the secrets -> checks if there is a secret then stores secret    
     event SecretShared(uint secret);
-    function revealRNG(
+    function revealRN(
             uint[2] memory a,
             uint[2][2] memory b,
             uint[2] memory c,
@@ -702,6 +711,8 @@ contract ZKRandao {
         for(uint i = 0; i < input.length; i++){
             inputValues[i] = input[i];
         }
+        assert(Secrets[blocknumber].accountSubmit == msg.sender && block.number - blocknumber >= RevealRangeSubmitter || Secrets[blocknumber].accountSubmit != msg.sender && block.number - blocknumber >= RevealRangeOther);
+        
         if (verifyReveal(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
             
@@ -711,14 +722,23 @@ contract ZKRandao {
             if(Secrets[blocknumber].hash1 == input[4]){
             if(Secrets[blocknumber].hash2 == input[5]){
             Secrets[blocknumber].secret = input[3];
+            Secrets[blocknumber].accountReveal = msg.sender;
+            Secrets[blocknumber].pending = false;
+            
+            RevealedSecrets[indexReaveledSecrets] = input[3];
+            indexReaveledSecrets += 1;
             emit SecretShared(Secrets[blocknumber].secret);
             
+            //Send reward to revealer
+            msg.sender.transfer(1000000000000000);
             return true;
-            }}}} //Close the if statements checks
+            }}}} //Close the if statements
         
         } else {
             return false;
         } 
     }
-
+    
+    function () external payable {
+    }
 }
