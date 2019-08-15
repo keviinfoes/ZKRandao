@@ -123,7 +123,7 @@ def handle_event(block_filter):
                                                                     c_array,
                                                                     inputs_array).buildTransaction({'gas': 857144, 'nonce': nonce})
 
-                private_key = "A3076896C1E73B1079955F2FE72CFF4015DC7900DBD7321D0119004310EE716E"
+                private_key = "XXXXXXXX"
                 signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
                 txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
@@ -180,7 +180,7 @@ def handle_event(block_filter):
                                                                     BlockCurrentSecret).buildTransaction(
                                                                     {'gas': 918620, 'nonce': nonce})
 
-            private_key = "A3076896C1E73B1079955F2FE72CFF4015DC7900DBD7321D0119004310EE716E"
+            private_key = "XXXXX"
             signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
             txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
