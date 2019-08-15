@@ -132,14 +132,14 @@ def handle_event(block_filter):
                 contract_txn = contract_ZKRandao.functions.submitRN(a_array,
                                                                     b_array_total,
                                                                     c_array,
-                                                                    inputs_array).buildTransaction({'gas': 857144, 'nonce': nonce})
+                                                                    inputs_array).buildTransaction({'gas': 957144, 'nonce': nonce})
 
-                private_key = "A3076896C1E73B1079955F2FE72CFF4015DC7900DBD7321D0119004310EE716E"
+                private_key = "XXXX"
                 signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
                 txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
                 #Check transaction succes - received transactionreceipt
-                receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash)
+                receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
                 print("Transactions submit mined")
                 print(receipt)
                 indexSubmitRN += 1
@@ -155,7 +155,7 @@ def handle_event(block_filter):
                 writeFile.close()
 
         #Reveal secret on chain
-        if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > 4:
+        if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > RevealRangeSubmitter:
             with cd("/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/ZKRandao_reveal"):
                 subprocess.run(
                     ["/Users/kevinfoesenek/.zokrates/bin/zokrates", "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
@@ -197,14 +197,14 @@ def handle_event(block_filter):
                                                                     c_array,
                                                                     inputs_array,
                                                                     BlockCurrentSecret).buildTransaction(
-                                                                    {'gas': 918620, 'nonce': nonce})
+                                                                    {'gas': 1018620, 'nonce': nonce})
 
-            private_key = "A3076896C1E73B1079955F2FE72CFF4015DC7900DBD7321D0119004310EE716E"
+            private_key = "XXXX"
             signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
             txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
             # Check transaction succes - received transactionreceipt
-            receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash)
+            receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
             print("Transactions reveal mined")
             print(receipt)
             print(receipt.blockNumber)
