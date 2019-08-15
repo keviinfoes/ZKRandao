@@ -576,8 +576,8 @@ contract ZKRandao {
     uint constant public ExpRange = 1000;  //To adjust based on range calculations
     uint constant public RevealRangeSubmitter = 2;
     uint constant public RevealRangeOther = 3;
-    
-    //Testing JS VM variables
+
+    //Info for blocknumbers
     uint public indexSecrets;
     mapping(uint => uint) public Blocknumber;
     
@@ -685,6 +685,8 @@ contract ZKRandao {
             Blocknumber[indexSecrets] = block.number;
             indexSecrets += 1;
             
+            //Send reward to submitter
+            msg.sender.transfer(1000000000000000);
             return true;
         } else {
             return false;
@@ -727,6 +729,8 @@ contract ZKRandao {
             indexReaveledSecrets += 1;
             emit SecretShared(Secrets[blocknumber].secret);
             
+            //Send reward to revealer
+            msg.sender.transfer(1000000000000000);
             return true;
             }}}} //Close the if statements
         
@@ -734,5 +738,7 @@ contract ZKRandao {
             return false;
         } 
     }
-
+    
+    function () external payable {
+    }
 }
