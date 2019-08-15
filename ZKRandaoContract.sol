@@ -721,6 +721,7 @@ contract ZKRandao {
             if(Secrets[blocknumber].hash2 == input[5]){
             Secrets[blocknumber].secret = input[3];
             Secrets[blocknumber].accountReveal = msg.sender;
+            Secrets[blocknumber].pending = false;
             
             RevealedSecrets[indexReaveledSecrets] = input[3];
             indexReaveledSecrets += 1;
