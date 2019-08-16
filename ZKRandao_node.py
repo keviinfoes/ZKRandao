@@ -1,6 +1,3 @@
-#TODO
-    #- STORE SECRETS - IN LOCAL DATABASE FILE
-
 #Implementation ZKRandao node
 
 from web3 import Web3
@@ -14,8 +11,8 @@ import csv
 web3_ZKRandao = Web3(Web3.HTTPProvider("https://ropsten.infura.io/v3/a6eaf73151ac4cd386fab484134d4038"))
 
 #Set data for ZKRandao contract
-abi_ZKRandao = '''[{"constant":true,"inputs":[],"name":"RevealRangeOther","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Secrets","outputs":[{"name":"secret","type":"uint256"},{"name":"range","type":"uint256"},{"name":"hash1","type":"uint256"},{"name":"hash2","type":"uint256"},{"name":"pending","type":"bool"},{"name":"accountSubmit","type":"address"},{"name":"accountReveal","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"NonEmpty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexReaveledSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ExpRange","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"RevealedSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[4]"}],"name":"submitRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[8]"},{"name":"blocknumber","type":"uint256"}],"name":"revealRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeSubmitter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"CheckHash","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Blocknumber","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"s","type":"string"}],"name":"Verified","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"secret","type":"uint256"}],"name":"SecretShared","type":"event"}]'''
-address_ZKRandao = web3_ZKRandao.toChecksumAddress("0x3D6A7061Bb4F3dDd33cBfeaE24dc72167aE51281")
+abi_ZKRandao = '''[{"constant":true,"inputs":[],"name":"RevealRangeOther","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Secrets","outputs":[{"name":"secret","type":"uint256"},{"name":"range","type":"uint256"},{"name":"hash1","type":"uint256"},{"name":"hash2","type":"uint256"},{"name":"pending","type":"bool"},{"name":"accountSubmit","type":"address"},{"name":"accountReveal","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"NonEmpty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexReaveledSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ExpRange","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"RevealedSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[4]"}],"name":"submitRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[8]"},{"name":"blocknumber","type":"uint256"}],"name":"revealRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeSubmitter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"CheckHash","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Blocknumber","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"s","type":"string"}],"name":"Verified","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"secret","type":"uint256"}],"name":"SecretShared","type":"event"}]'''
+address_ZKRandao = web3_ZKRandao.toChecksumAddress("0x110bf94e5528fb03d30041d7b647c509d3298061")
 contract_ZKRandao = web3_ZKRandao.eth.contract(address_ZKRandao, abi=abi_ZKRandao)
 
 #Set blocknumber, submit and reveal counter
@@ -48,6 +45,20 @@ class cd:
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
 
+#Create CSV file for storing secrets and metadata secrets
+Table_namesSubmit = ["blocknumber_submit", "secret", "rangeSecret", "hash1", "hash2", "accountSubmit"]
+Table_namesReveal = ["blocknumber_reveal", "secret", "rangeSecret", "hash1", "hash2", "accountReveal"]
+
+with open('/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/DB_SecretsSubmit.csv', 'w') as writeFile:
+    writer = csv.writer(writeFile)
+    writer.writerow(Table_namesSubmit)
+writeFile.close()
+
+with open('/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/DB_SecretsReveal.csv', 'w') as writeFile:
+    writer = csv.writer(writeFile)
+    writer.writerow(Table_namesReveal)
+writeFile.close()
+
 # Async functions for reading the chain - submit secret and reveal secret
 def handle_event(block_filter):
     global indexSubmitRN
@@ -59,9 +70,9 @@ def handle_event(block_filter):
     global HashCurrent1
     if block_filter != None:
         print("New Block Ropsten: {}".format(block_filter.number))
-        if indexSubmitRN == indexRevealRN:
+        if indexSubmitRN == indexRevealRN and indexBlockNumber % 5 == 0: #Start submit only every 5 blocks
             #Generate random number = secret
-            Secret = random.randint(1, 1001)
+            Secret = random.randint(1, ExpectedRange+1)
             print("New Secret: {}".format(Secret))
 
             #Input secret number in ZoKrates for hash calculation
@@ -121,22 +132,30 @@ def handle_event(block_filter):
                 contract_txn = contract_ZKRandao.functions.submitRN(a_array,
                                                                     b_array_total,
                                                                     c_array,
-                                                                    inputs_array).buildTransaction({'gas': 857144, 'nonce': nonce})
+                                                                    inputs_array).buildTransaction({'gas': 957144, 'nonce': nonce})
 
-                private_key = "XXXXXXXX"
+                private_key = "XXXX"
                 signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
                 txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
                 #Check transaction succes - received transactionreceipt
-                receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash)
+                receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
                 print("Transactions submit mined")
                 print(receipt)
                 indexSubmitRN += 1
                 CurrentSecret = Secret
                 BlockCurrentSecret = receipt.blockNumber
 
+                #Save data submit to csv file
+                newRow = []
+                newRow.extend([BlockCurrentSecret, Secret, Secret_place, HashCurrent0, HashCurrent1, "0x4B1366383c1f592Cfe00ab8FB031Fe4D56Ae680e"])
+                with open('/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/DB_SecretsSubmit.csv', 'a') as writeFile:
+                    writer = csv.writer(writeFile)
+                    writer.writerow(newRow)
+                writeFile.close()
+
         #Reveal secret on chain
-        if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > 4:
+        if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > RevealRangeSubmitter:
             with cd("/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/ZKRandao_reveal"):
                 subprocess.run(
                     ["/Users/kevinfoesenek/.zokrates/bin/zokrates", "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
@@ -178,18 +197,27 @@ def handle_event(block_filter):
                                                                     c_array,
                                                                     inputs_array,
                                                                     BlockCurrentSecret).buildTransaction(
-                                                                    {'gas': 918620, 'nonce': nonce})
+                                                                    {'gas': 1018620, 'nonce': nonce})
 
-            private_key = "XXXXX"
+            private_key = "XXXX"
             signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
             txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
             # Check transaction succes - received transactionreceipt
-            receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash)
+            receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
             print("Transactions reveal mined")
             print(receipt)
             print(receipt.blockNumber)
             indexRevealRN += 1
+
+            # Save data reveal to csv file
+            newRow = []
+            newRow.extend([receipt.blockNumber, CurrentSecret, CurrentSecretPlace, HashCurrent0, HashCurrent1,
+                           "0x4B1366383c1f592Cfe00ab8FB031Fe4D56Ae680e"])
+            with open('/Users/kevinfoesenek/Desktop/TEST_ZKrandao0.1/DB_SecretsReveal.csv', 'a') as writeFile:
+                writer = csv.writer(writeFile)
+                writer.writerow(newRow)
+            writeFile.close()
 
 def main():
     global indexBlockNumber
@@ -197,9 +225,8 @@ def main():
         TEMPindexBlockNumber = web3_ZKRandao.eth.blockNumber
         if TEMPindexBlockNumber > indexBlockNumber:
             indexBlockNumber += 1
-            if indexBlockNumber % 5 == 0: #Start submit proces every 5 blocks
-                block_filter = web3_ZKRandao.eth.getBlock(indexBlockNumber)
-                handle_event(block_filter)
+            block_filter = web3_ZKRandao.eth.getBlock(indexBlockNumber)
+            handle_event(block_filter)
     else:
         print("Error: Loop terminated")
 
