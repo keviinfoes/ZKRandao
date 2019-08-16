@@ -14,7 +14,7 @@ Based on this implementation every participant is incentivized to participate an
 For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY).
 
 # Instructions ZKRandao implementation
-This repository contains an implementation of ZKRandao. Perform these steps to set up your own ZKRandao contract.
+This repository contains an implementation of ZKRandao. Perform these steps to set up your own ZKRandao node to generate random numbers.
 
 -- TO ADD --
 
