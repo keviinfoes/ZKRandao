@@ -1,6 +1,8 @@
 # ZKRandao
 A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox for the ZK-snarks. 
 
+*WARNING: for this POC we are using the G16 scheme for ZK-snarks which is subject to malleability. See [G16](http://zokrates.github.io/reference/proving_schemes.html#g16-malleability) for implications.*
+
 # Description of ZKRandao
 ZKRandao is based on the classic RANDAO implementation, everyone in the network can send a sha3(s). This way it wil be unbiased as long as there is one honest participant in the set of random numbers selected by the users. The problem with the classic RANDAO is that it is not guaranteed that every participant will reveil the s value. The risk of no reveal to influence the randomness therefore exists. The reveal however can be enforced by using ZK-snarks. 
 
