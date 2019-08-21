@@ -22,6 +22,7 @@ This repository contains an implementation of ZKRandao. Perform these steps to s
 
 1. Install dependencies:
     - ZoKrates
+    - Web3.py
 2. Copy this implementation.
 3. Adjust the variables in the file ZKRandao_node.py.
 4. Run ZKRandao_node.py.
