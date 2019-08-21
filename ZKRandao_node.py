@@ -7,15 +7,22 @@ import os
 import json
 import csv
 
-#Set node for Ropsten
-web3_ZKRandao = Web3(Web3.HTTPProvider("https://ropsten.infura.io/v3/XXXX"))
+#VARIABLES TO SET ON INSTALLATION
+Web3_provider = "XXXX" #Example: "https://ropsten.infura.io/v3/xxxx"
+PubKey = "XXXX" #Example: "0x0000000000000000000000000000000000000000"
+PrivKey = "XXXX" #Example: "8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b41de8f"
+Path_ZoKratesEXECUTABLE = "/Users/XXXX/.zokrates/bin/zokrates" #Example: "/Users/XXX/.zokrates/bin/zokrates"
+Path_ZoKratesMaps = "/Users/XXX/Desktop/ZKRandao" #Example: "/Users/XXX/Desktop/ZKRandao
 
-#Set data for ZKRandao contract
+#Connect to node chain
+web3_ZKRandao = Web3(Web3.HTTPProvider(Web3_provider))
+
+#Connect to ZKRandao contract
 abi_ZKRandao = '''[{"constant":true,"inputs":[],"name":"RevealRangeOther","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Secrets","outputs":[{"name":"secret","type":"uint256"},{"name":"range_begin","type":"uint256"},{"name":"range_end","type":"uint256"},{"name":"hash1","type":"uint256"},{"name":"hash2","type":"uint256"},{"name":"pending","type":"bool"},{"name":"accountSubmit","type":"address"},{"name":"accountReveal","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"NonEmpty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[9]"},{"name":"blocknumber","type":"uint256"}],"name":"revealRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"indexReaveledSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ExpRange","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"RevealedSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"c","type":"uint256[2]"},{"name":"input","type":"uint256[5]"}],"name":"submitRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeSubmitter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"CheckHash","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Blocknumber","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"s","type":"string"}],"name":"Verified","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"secret","type":"uint256"}],"name":"SecretShared","type":"event"}]'''
-address_ZKRandao = web3_ZKRandao.toChecksumAddress("### ADD ADDRESS OF PRIVATE KEY ###")
+address_ZKRandao = web3_ZKRandao.toChecksumAddress("0x475126cda76e86bf725d60c96ca0227f10ef9996")
 contract_ZKRandao = web3_ZKRandao.eth.contract(address_ZKRandao, abi=abi_ZKRandao)
 
-#Set blocknumber, submit and reveal counter
+#Set variables for the node
 indexBlockNumber = web3_ZKRandao.eth.blockNumber
 indexSubmitRN = 0
 indexRevealRN = 0
@@ -26,7 +33,15 @@ HashCurrent0 = 0
 HashCurrent1 = 0
 BeginRangeCurrent = 0
 
-#Set boundaries based on ZKRandao contract
+Path_storeSubmit = Path_ZoKratesMaps + "/DB_SecretsSubmit.csv"
+Path_storeReveal = Path_ZoKratesMaps + "/DB_SecretsReveal.csv"
+Path_provingKeyHash = Path_ZoKratesMaps + "/CalculateHash"
+Path_provingKeySubmit = Path_ZoKratesMaps + "/Submit"
+Path_provingKeyReveal = Path_ZoKratesMaps + "/Reveal"
+Path_proofSubmit = Path_provingKeySubmit + "/proof.json"
+Path_proofReveal = Path_provingKeyReveal + "/proof.json"
+
+#Read boundaries ZKRandao contract for use by the node
 ExpectedRange = contract_ZKRandao.functions.ExpRange().call()
 RevealRangeSubmitter = contract_ZKRandao.functions.RevealRangeSubmitter().call()
 RevealRangeOther = contract_ZKRandao.functions.RevealRangeOther().call()
@@ -50,12 +65,12 @@ class cd:
 Table_namesSubmit = ["blocknumber_submit", "secret", "rangeSecret", "RangeBegin", "hash1", "hash2", "accountSubmit"]
 Table_namesReveal = ["blocknumber_reveal", "secret", "rangeSecret", "RangeBegin", "hash1", "hash2", "accountReveal"]
 
-with open('### ADD PATH TO STORE FILE WITH SECRET NUMBERS SUBMIT ###', 'w') as writeFile:
+with open(Path_storeSubmit, 'w') as writeFile:
     writer = csv.writer(writeFile)
     writer.writerow(Table_namesSubmit)
 writeFile.close()
 
-with open('### ADD PATH TO STORE FILE WITH SECRET NUMBERS REVEAL ###', 'w') as writeFile:
+with open(Path_storeReveal, 'w') as writeFile:
     writer = csv.writer(writeFile)
     writer.writerow(Table_namesReveal)
 writeFile.close()
@@ -74,16 +89,16 @@ def handle_event(block_filter):
         print("New Block Ropsten: {}".format(block_filter.number))
         if indexSubmitRN == indexRevealRN and indexBlockNumber % 5 == 0: #Start submit only every 5 blocks
             #Generate random number = secret
-            RangeBegin = random.randint(1, ((ExpectedRange+1)*10**6))
+            RangeBegin = random.randint(1, ((ExpectedRange+1)*10**12))
             BeginRangeCurrent = RangeBegin
             Secret = random.randint(RangeBegin, RangeBegin+ExpectedRange+1)
             print("New Secret: {}".format(Secret))
 
             #Input secret number in ZoKrates for hash calculation
                 #Adjust the below path to the ZKRandao.code file
-            with cd("### ADD PATH TO THE DIRECTORY .CODE FILE FOR HASH CALCULATION ###"):
+            with cd(Path_provingKeyHash):
                     #Adjust the below path to the zokrates executable file
-                    subprocess.run(["/Users/XXX/.zokrates/bin/zokrates", "compute-witness", "-a", "0", "0", "0", str(Secret)], stdout=subprocess.DEVNULL)
+                    subprocess.run([Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(Secret)], stdout=subprocess.DEVNULL)
 
                     # Save the hash variables
                     process_out1 = subprocess.Popen(["grep", "~out_1", "witness"], stdout=subprocess.PIPE)
@@ -101,16 +116,16 @@ def handle_event(block_filter):
             #Submit meta data secret on chain
             Secret_place = Secret - RangeBegin
             CurrentSecretPlace = Secret_place
-            with cd("### ADD PATH TO DIRECTORY WITH THE PROVING KEY FOR SUBMIT RN ###"):
-                subprocess.run(["/Users/XXX/.zokrates/bin/zokrates", "compute-witness", "-a", "0", "0", "0", str(Secret),
+            with cd(Path_provingKeySubmit):
+                subprocess.run([Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(Secret),
                                str(out_0), str(out_1), str(ExpectedRange), str(RangeBegin), str(Secret_place)], stdout=subprocess.DEVNULL)
-                subprocess.run(["/Users/XXX/.zokrates/bin/zokrates", "generate-proof"], stdout=subprocess.DEVNULL)
+                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof"], stdout=subprocess.DEVNULL)
 
                 #Create and send submitRN transaction infura
-                nonce = web3_ZKRandao.eth.getTransactionCount(web3_ZKRandao.toChecksumAddress("###ADD ADDRESS OF PRIVATE KEY ###"))
+                nonce = web3_ZKRandao.eth.getTransactionCount(web3_ZKRandao.toChecksumAddress(PubKey))
 
                 #Read proof data in json file
-                with open("### ADD PATH TO PROOF.JSON FILE OF SUBMIT RN") as json_file:
+                with open(Path_proofSubmit) as json_file:
                     data = json.load(json_file)
                     data_proof = data['proof']
                     submit_a = data_proof['a']
@@ -138,7 +153,7 @@ def handle_event(block_filter):
                                                                     c_array,
                                                                     inputs_array).buildTransaction({'gas': 999000, 'nonce': nonce})
 
-                private_key = "### ADD PRIVATE KEY ###"
+                private_key = PrivKey
                 signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
                 txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
@@ -152,27 +167,27 @@ def handle_event(block_filter):
 
                 #Save data submit to csv file
                 newRow = []
-                newRow.extend([BlockCurrentSecret, Secret, Secret_place, BeginRangeCurrent, HashCurrent0, HashCurrent1, "0x4B1366383c1f592Cfe00ab8FB031Fe4D56Ae680e"])
-                with open('### ADD PATH TO STORE FILE WITH SECRET NUMBERS SUBMIT ###', 'a') as writeFile:
+                newRow.extend([BlockCurrentSecret, Secret, Secret_place, BeginRangeCurrent, HashCurrent0, HashCurrent1, PubKey])
+                with open(Path_storeSubmit, 'a') as writeFile:
                     writer = csv.writer(writeFile)
                     writer.writerow(newRow)
                 writeFile.close()
 
         #Reveal secret on chain
         if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > RevealRangeSubmitter:
-            with cd("### ADD PATH TO DIRECTORY WITH THE PROVING KEY FOR REVEAL RN ###"):
+            with cd(Path_provingKeyReveal):
                 subprocess.run(
-                    ["/Users/XXX/.zokrates/bin/zokrates", "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
+                    [Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
                      str(HashCurrent0), str(HashCurrent1), str(ExpectedRange), str(BeginRangeCurrent), str(CurrentSecretPlace)], stdout=subprocess.DEVNULL)
-                subprocess.run(["/Users/XXX/.zokrates/bin/zokrates", "generate-proof"],
+                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof"],
                                stdout=subprocess.DEVNULL)
 
                 # Create and send revealRN transaction infura
                 nonce = web3_ZKRandao.eth.getTransactionCount(
-                    web3_ZKRandao.toChecksumAddress("###ADD ADDRESS OF PRIVATE KEY ###"))
+                    web3_ZKRandao.toChecksumAddress(PubKey))
 
                 # Read proof data in json file
-                with open("### ADD PATH TO PROOF.JSON FILE OF REVEAL RN") as json_file:
+                with open(Path_proofReveal) as json_file:
                     data = json.load(json_file)
                     data_proof = data['proof']
                     submit_a = data_proof['a']
@@ -203,7 +218,7 @@ def handle_event(block_filter):
                                                                     BlockCurrentSecret).buildTransaction(
                                                                     {'gas': 999000, 'nonce': nonce})
 
-            private_key = "XXXX"
+            private_key = PrivKey
             signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
             txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
@@ -217,8 +232,8 @@ def handle_event(block_filter):
             # Save data reveal to csv file
             newRow = []
             newRow.extend([receipt.blockNumber, CurrentSecret, CurrentSecretPlace, BeginRangeCurrent, HashCurrent0, HashCurrent1,
-                           "###ADD ADDRESS OF PRIVATE KEY ###"])
-            with open('### ADD PATH TO FILE WITH SECRET NUMBERS REVEAL ###', 'a') as writeFile:
+                           PubKey])
+            with open(Path_storeReveal, 'a') as writeFile:
                 writer = csv.writer(writeFile)
                 writer.writerow(newRow)
             writeFile.close()

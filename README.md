@@ -18,10 +18,16 @@ Based on this implementation every participant is incentivized to participate an
 For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY).
 
 # Instructions ZKRandao implementation
-This repository contains an implementation of ZKRandao. Perform these steps to set up your own ZKRandao node to generate random numbers.
+This repository contains an implementation of ZKRandao. Perform these steps to set up your own ZKRandao node to generate random numbers. This implementation is tested on macOS and linux (Ubuntu).
 
--- TO ADD --
+1. Install dependencies:
+    - [ZoKrates](https://zokrates.github.io/gettingstarted.html)
+    - [Web3.py](https://web3py.readthedocs.io/en/stable/quickstart.html)
+2. Copy this repository.
+3. Open the file ZKRandao_node.py and adjust the variables as indicated.
+4. Run ZKRandao_node.py.
+
+Enjoy generating random numbers! 
 
 
-Note: 
-
+  
