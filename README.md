@@ -27,7 +27,7 @@ This repository contains an implementation of ZKRandao. Perform these steps to s
 3. Open the file ZKRandao_node.py and adjust the variables as indicated.
 4. Run ZKRandao_node.py.
 
-Enjoy generating random numbers! Note that this is a test implementation and runs on the testnet Ropsten. 
+Enjoy generating random numbers! The reward is 1 ZKR for submit and 1 ZKR for reveal. Note that this is a test implementation and runs on the testnet Ropsten. 
 
 
   
