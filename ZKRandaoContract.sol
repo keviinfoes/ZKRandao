@@ -1067,7 +1067,7 @@ contract ERC20 is Context, IERC20 {
     }
 }
 
-contract ZKRandao is ERC20("Test", "Test", 18) {
+contract ZKRandao is ERC20("ZKRandao", "ZKR", 18) {
     using Pairing for *;
     struct VerifyingKey {
         Pairing.G1Point a;
