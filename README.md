@@ -1,5 +1,6 @@
 # ZKRandao
-A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox for the ZK-snarks. 
+A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox for the ZK-snarks. This is a POC implementation and runs on the **testnet Ropsten**. 
+
 
 *WARNING: for this POC we are using the G16 scheme for ZK-snarks which is subject to malleability. See [G16](http://zokrates.github.io/reference/proving_schemes.html#g16-malleability) for implications.*
 
@@ -28,8 +29,5 @@ This repository contains an implementation of ZKRandao. Perform these steps to s
 4. Run ZKRandao_node.py.
 
 Enjoy generating random numbers! The reward is 1 ZKR for submit and 1 ZKR for reveal. The ZKR token will be used for the governance of the contract, this includes adjustments in the boundaries for the determination of the random number.
-
-Note that this is a test implementation and runs on the testnet Ropsten. 
-
 
   
