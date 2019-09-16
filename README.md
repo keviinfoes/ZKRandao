@@ -1,8 +1,5 @@
 # ZKRandao
-A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox for the ZK-snarks. This is a POC implementation and runs on the **testnet Ropsten**. 
-
-
-*WARNING: for this POC we are using the G16 scheme for ZK-snarks which is subject to malleability. See [G16](http://zokrates.github.io/reference/proving_schemes.html#g16-malleability) for implications.*
+A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox for the ZK-snarks, specific the GM17 scheme. This is a POC implementation and runs on the **testnet Ropsten**. 
 
 *WARNING: zk-snarks need a trusted set-up. The setup was performed on creation of the verifier contract. Because it is a POC no measures where taken to guarantee the destroyal of the toxic waste (the file that can be used to generate false proofs).*
 
@@ -23,7 +20,7 @@ This repository contains an implementation of ZKRandao. Perform these steps to s
 
 1. Install dependencies:
     - [ZoKrates](https://zokrates.github.io/gettingstarted.html)
-    - [Web3.py](https://web3py.readthedocs.io/en/stable/quickstart.html)
+    - [Web3.py](https://web3py.readthedocs.io/en/stable/quickstart.html) - `pip3 install web3`
 2. Copy this repository.
 3. Open the file ZKRandao_node.py and adjust the variables as indicated.
 4. Run ZKRandao_node.py.
