@@ -1,5 +1,5 @@
 # ZKRandao
-A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox with the GM17 back-end for the ZK-snarks. This is a POC implementation and runs on the **testnet Ropsten**. 
+A randao implementation for RNG (random number generator). ZK-snarks are used in the RNG proces, the ZK-snarks are NOT used for anonymity. This implementation uses the [ZoKrates](https://zokrates.github.io) toolbox with the PGHR13 back-end for the ZK-snarks. This is a POC implementation and runs on the **testnet Ropsten**. 
 
 *WARNING: zk-snarks need a trusted set-up. The setup was performed on creation of the verifier contract. Because it is a POC no measures where taken to guarantee the destroyal of the toxic waste (the file that can be used to generate false proofs).*
 
