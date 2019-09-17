@@ -1249,7 +1249,7 @@ contract ZKRandao is ERC20("ZKRandao", "ZKR", 18) {
             uint[2] memory c_p,
             uint[2] memory h,
             uint[2] memory k,
-            uint[9] memory input
+            uint[9] memory input,
             uint blocknumber) 
 	public returns (bool r) {
         

@@ -14,19 +14,12 @@ import csv
 #Path_ZoKratesEXECUTABLE = "/Users/XXXX/.zokrates/bin/zokrates" #Example: "/Users/XXX/.zokrates/bin/zokrates"
 #Path_ZoKratesMaps = "/Users/XXX/Desktop/ZKRandao" #Example: "/Users/XXX/Desktop/ZKRandao
 
-#VARIABLES TO SET ON INSTALLATION
-Web3_provider = "https://ropsten.infura.io/v3/a6eaf73151ac4cd386fab484134d4038" #Example: "https://ropsten.infura.io/v3/xxxx"
-PubKey = "0x4B1366383c1f592Cfe00ab8FB031Fe4D56Ae680e" #Example: "0x0000000000000000000000000000000000000000"
-PrivKey = "A3076896C1E73B1079955F2FE72CFF4015DC7900DBD7321D0119004310EE716E" #Example: "8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b41de8f"
-Path_ZoKratesEXECUTABLE = "~/ZoKrates/target/release/zokrates" #Example: "/Users/XXX/.zokrates/bin/zokrates"
-Path_ZoKratesMaps = "~/Desktop/TEST_ZKrandao" #Example: "/Users/XXX/Desktop/ZKRandao
-
 #Connect to node chain
 web3_ZKRandao = Web3(Web3.HTTPProvider(Web3_provider))
 
 #Connect to ZKRandao contract
-abi_ZKRandao = '''[{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeOther","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"Secrets","outputs":[{"internalType":"uint256","name":"secret","type":"uint256"},{"internalType":"uint256","name":"range_begin","type":"uint256"},{"internalType":"uint256","name":"range_end","type":"uint256"},{"internalType":"uint256","name":"hash1","type":"uint256"},{"internalType":"uint256","name":"hash2","type":"uint256"},{"internalType":"bool","name":"pending","type":"bool"},{"internalType":"address","name":"accountSubmit","type":"address"},{"internalType":"address","name":"accountReveal","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"NonEmpty","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"indexReaveledSecrets","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexSecrets","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"ExpRange","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256[2]","name":"a","type":"uint256[2]"},{"internalType":"uint256[2]","name":"a_p","type":"uint256[2]"},{"internalType":"uint256[2][2]","name":"b","type":"uint256[2][2]"},{"internalType":"uint256[2]","name":"b_p","type":"uint256[2]"},{"internalType":"uint256[2]","name":"c","type":"uint256[2]"},{"internalType":"uint256[2]","name":"c_p","type":"uint256[2]"},{"internalType":"uint256[2]","name":"h","type":"uint256[2]"},{"internalType":"uint256[2]","name":"k","type":"uint256[2]"},{"internalType":"uint256[5]","name":"input","type":"uint256[5]"}],"name":"submitRN","outputs":[{"internalType":"bool","name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"RevealedSecrets","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"reward_submit","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeSubmitter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256[2]","name":"a","type":"uint256[2]"},{"internalType":"uint256[2]","name":"a_p","type":"uint256[2]"},{"internalType":"uint256[2][2]","name":"b","type":"uint256[2][2]"},{"internalType":"uint256[2]","name":"b_p","type":"uint256[2]"},{"internalType":"uint256[2]","name":"c","type":"uint256[2]"},{"internalType":"uint256[2]","name":"c_p","type":"uint256[2]"},{"internalType":"uint256[2]","name":"h","type":"uint256[2]"},{"internalType":"uint256[2]","name":"k","type":"uint256[2]"},{"internalType":"uint256[9]","name":"input","type":"uint256[9]"}],"name":"revealRN","outputs":[{"internalType":"bool","name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"CheckHash","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"Blocknumber","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"reward_reveal","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"s","type":"string"}],"name":"Verified","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"secret","type":"uint256"}],"name":"SecretShared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"}]'''
-address_ZKRandao = web3_ZKRandao.toChecksumAddress("0x5Ab392D9a685D1c10780e5837b31c37924cb239F")
+abi_ZKRandao = '''[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeOther","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Secrets","outputs":[{"name":"secret","type":"uint256"},{"name":"range_begin","type":"uint256"},{"name":"range_end","type":"uint256"},{"name":"hash1","type":"uint256"},{"name":"hash2","type":"uint256"},{"name":"pending","type":"bool"},{"name":"accountSubmit","type":"address"},{"name":"accountReveal","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"a_p","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"b_p","type":"uint256[2]"},{"name":"c","type":"uint256[2]"},{"name":"c_p","type":"uint256[2]"},{"name":"h","type":"uint256[2]"},{"name":"k","type":"uint256[2]"},{"name":"input","type":"uint256[9]"},{"name":"blocknumber","type":"uint256"}],"name":"revealRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"NonEmpty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"indexReaveledSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"indexSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"ExpRange","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"a","type":"uint256[2]"},{"name":"a_p","type":"uint256[2]"},{"name":"b","type":"uint256[2][2]"},{"name":"b_p","type":"uint256[2]"},{"name":"c","type":"uint256[2]"},{"name":"c_p","type":"uint256[2]"},{"name":"h","type":"uint256[2]"},{"name":"k","type":"uint256[2]"},{"name":"input","type":"uint256[5]"}],"name":"submitRN","outputs":[{"name":"r","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"RevealedSecrets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"reward_submit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"RevealRangeSubmitter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"CheckHash","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"Blocknumber","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"reward_reveal","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"s","type":"string"}],"name":"Verified","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"secret","type":"uint256"}],"name":"SecretShared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"}]'''
+address_ZKRandao = web3_ZKRandao.toChecksumAddress("0x28D19EF0460737912eC7f9a6A7c9F4F00766d165")
 contract_ZKRandao = web3_ZKRandao.eth.contract(address_ZKRandao, abi=abi_ZKRandao)
 
 #Set variables for the node
@@ -95,6 +88,7 @@ def handle_event(block_filter):
     if block_filter != None:
         print("New Block Ropsten: {}".format(block_filter.number))
         if indexSubmitRN == indexRevealRN and indexBlockNumber % 5 == 0: #Start submit only every 5 blocks
+            print("start submit")
             #Generate random number = secret
             RangeBegin = random.randint(1, ((ExpectedRange+1)*10**12))
             BeginRangeCurrent = RangeBegin
@@ -124,70 +118,72 @@ def handle_event(block_filter):
             Secret_place = Secret - RangeBegin
             CurrentSecretPlace = Secret_place
             with cd(Path_provingKeySubmit):
+                print("New range: {}".format(ExpectedRange))
+                print("Range begin: {}".format(RangeBegin))
+                print("Secret place: {}".format(Secret_place))
                 subprocess.run([Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(Secret),
                                str(out_0), str(out_1), str(ExpectedRange), str(RangeBegin), str(Secret_place)], stdout=subprocess.DEVNULL)
-                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof"], stdout=subprocess.DEVNULL)
+                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof", "--proving-scheme", "pghr13"], stdout=subprocess.DEVNULL)
 
                 #Create and send submitRN transaction infura
                 nonce = web3_ZKRandao.eth.getTransactionCount(web3_ZKRandao.toChecksumAddress(PubKey))
-
                 #Read proof data in json file
                 with open(Path_proofSubmit) as json_file:
                     data = json.load(json_file)
                     data_proof = data['proof']
                     submit_a = data_proof['a']
                     submit_a_p = data_proof['a_p']
-		    submit_b = data_proof['b']
-		    submit_b_p = data_proof['b_p']
+                    submit_b = data_proof['b']
+                    submit_b_p = data_proof['b_p']
                     submit_c = data_proof['c']
-		    submit_c = data_proof['c_p']
-		    submit_h = data_proof['h']
-		    submit_k = data_proof['k']
+                    submit_c_p = data_proof['c_p']
+                    submit_h = data_proof['h']
+                    submit_k = data_proof['k']
                     inputs = data['inputs']
 
                     #Create empty array to add the data
                     a_array = []
-		    ap_array = []
+                    ap_array = []
                     b_array_total = []
                     b_firstarray = []
                     b_secondarray = []
                     bp_array = []
-		    c_array = []
-	    	    cp_array = []
-		    h_array = []
-		    k_array = []
+                    c_array = []
+                    cp_array = []
+                    h_array = []
+                    k_array = []
                     inputs_array = []
                     a_array.extend([int(submit_a[0], base=16), int(submit_a[1], base=16)])
                     ap_array.extend([int(submit_a_p[0], base=16), int(submit_a_p[1], base=16)])
-		    b_firstarray.extend([int(submit_b[0][0], base=16), int(submit_b[0][1], base=16)])
+                    b_firstarray.extend([int(submit_b[0][0], base=16), int(submit_b[0][1], base=16)])
                     b_secondarray.extend([int(submit_b[1][0], base=16), int(submit_b[1][1], base=16)])
-                    b_array_total.extend([b_firsarray, b_secondarray])
+                    b_array_total.extend([b_firstarray, b_secondarray])
                     bp_array.extend([int(submit_b_p[0], base=16), int(submit_b_p[1], base=16)])
-		    c_array.extend([int(submit_c[0], base=16), int(submit_c[1], base=16)])
+                    c_array.extend([int(submit_c[0], base=16), int(submit_c[1], base=16)])
                     cp_array.extend([int(submit_c_p[0], base=16), int(submit_c_p[1], base=16)])
-		    h_array.extend([int(submit_h[0], base=16), int(submit_h[1], base=16)])
-		    k_array.extend([int(submit_k[0], base=16), int(submit_k[1], base=16)])
-		    inputs_array.extend([int(inputs[0], base=16), int(inputs[1], base=16), int(inputs[2], base=16),
+                    h_array.extend([int(submit_h[0], base=16), int(submit_h[1], base=16)])
+                    k_array.extend([int(submit_k[0], base=16), int(submit_k[1], base=16)])
+                    inputs_array.extend([int(inputs[0], base=16), int(inputs[1], base=16), int(inputs[2], base=16),
                                          int(inputs[3], base=16), int(inputs[4], base=16)])
 
-                contract_txn = contract_ZKRandao.functions.submitRN(a_array, ap_array,
+                    contract_txn = contract_ZKRandao.functions.submitRN(a_array, ap_array,
                                                                     b_array_total, bp_array,
                                                                     c_array, cp_array,
-								    h_array,
-								    k_array,
-                                                                    inputs_array).buildTransaction({'gas': 1500000, 'nonce': nonce})
+								                                    h_array,
+								                                    k_array,
+                                                                    inputs_array).buildTransaction({'gas': 2500000, 'nonce': nonce})
 
-                private_key = PrivKey
-                signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
-                txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
+                    private_key = PrivKey
+                    signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
+                    txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
-                #Check transaction succes - received transactionreceipt
-                receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
-                print("Transactions submit mined")
-                print(receipt)
-                indexSubmitRN += 1
-                CurrentSecret = Secret
-                BlockCurrentSecret = receipt.blockNumber
+                    #Check transaction succes - received transactionreceipt
+                    receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 2000)
+                    print("Transactions submit mined")
+                    print(receipt)
+                    indexSubmitRN += 1
+                    CurrentSecret = Secret
+                    BlockCurrentSecret = receipt.blockNumber
 
                 #Save data submit to csv file
                 newRow = []
@@ -199,71 +195,76 @@ def handle_event(block_filter):
 
         #Reveal secret on chain
         if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > RevealRangeSubmitter:
+            print("start reveal")
+            print(CurrentSecret)
+            print(HashCurrent0)
+            print(HashCurrent1)
+            print(ExpectedRange)
+            print(BeginRangeCurrent)
+            print(CurrentSecretPlace)
             with cd(Path_provingKeyReveal):
-                subprocess.run(
-                    [Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
-                     str(HashCurrent0), str(HashCurrent1), str(ExpectedRange), str(BeginRangeCurrent), str(CurrentSecretPlace)], stdout=subprocess.DEVNULL)
-                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof"],
-                               stdout=subprocess.DEVNULL)
+                subprocess.run([Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
+                                str(HashCurrent0), str(HashCurrent1), str(ExpectedRange), str(BeginRangeCurrent), str(CurrentSecretPlace)], stdout=subprocess.DEVNULL) #, stdout=subprocess.DEVNULL
+                subprocess.run([Path_ZoKratesEXECUTABLE, "generate-proof", "--proving-scheme", "pghr13"], stdout=subprocess.DEVNULL) #, stdout=subprocess.DEVNULL
 
                 # Create and send revealRN transaction infura
-                nonce = web3_ZKRandao.eth.getTransactionCount(
-                    web3_ZKRandao.toChecksumAddress(PubKey))
-
+                nonce = web3_ZKRandao.eth.getTransactionCount(web3_ZKRandao.toChecksumAddress(PubKey))
                 # Read proof data in json file
                 with open(Path_proofReveal) as json_file:
                     data = json.load(json_file)
                     data_proof = data['proof']
                     submit_a = data_proof['a']
+                    submit_a_p = data_proof['a_p']
                     submit_b = data_proof['b']
+                    submit_b_p = data_proof['b_p']
                     submit_c = data_proof['c']
+                    submit_c_p = data_proof['c_p']
+                    submit_h = data_proof['h']
+                    submit_k = data_proof['k']
                     inputs = data['inputs']
-
                     # Create empty array to add the data
                     a_array = []
-		    ap_array = []
+                    ap_array = []
                     b_array_total = []
                     b_firstarray = []
                     b_secondarray = []
                     bp_array = []
-		    c_array = []
-	    	    cp_array = []
-		    h_array = []
-		    k_array = []
+                    c_array = []
+                    cp_array = []
+                    h_array = []
+                    k_array = []
                     inputs_array = []
                     a_array.extend([int(submit_a[0], base=16), int(submit_a[1], base=16)])
                     ap_array.extend([int(submit_a_p[0], base=16), int(submit_a_p[1], base=16)])
-		    b_firstarray.extend([int(submit_b[0][0], base=16), int(submit_b[0][1], base=16)])
+                    b_firstarray.extend([int(submit_b[0][0], base=16), int(submit_b[0][1], base=16)])
                     b_secondarray.extend([int(submit_b[1][0], base=16), int(submit_b[1][1], base=16)])
-                    b_array_total.extend([b_firsarray, b_secondarray])
+                    b_array_total.extend([b_firstarray, b_secondarray])
                     bp_array.extend([int(submit_b_p[0], base=16), int(submit_b_p[1], base=16)])
-		    c_array.extend([int(submit_c[0], base=16), int(submit_c[1], base=16)])
+                    c_array.extend([int(submit_c[0], base=16), int(submit_c[1], base=16)])
                     cp_array.extend([int(submit_c_p[0], base=16), int(submit_c_p[1], base=16)])
-		    h_array.extend([int(submit_h[0], base=16), int(submit_h[1], base=16)])
-		    k_array.extend([int(submit_k[0], base=16), int(submit_k[1], base=16)])
+                    h_array.extend([int(submit_h[0], base=16), int(submit_h[1], base=16)])
+                    k_array.extend([int(submit_k[0], base=16), int(submit_k[1], base=16)])
                     inputs_array.extend([int(inputs[0], base=16), int(inputs[1], base=16), int(inputs[2], base=16),
                                          int(inputs[3], base=16), int(inputs[4], base=16), int(inputs[5], base=16),
                                          int(inputs[6], base=16), int(inputs[7], base=16), int(inputs[8], base=16)])
 
-                contract_txn = contract_ZKRandao.functions.revealRN(a_array, ap_array,
-                                                                    b_array_total, bp_array,
-                                                                    c_array, cp_array,
-								    h_array,
-								    k_array,
-                                                                    inputs_array,
-                                                                    BlockCurrentSecret).buildTransaction(
-                                                                    {'gas': 1500000, 'nonce': nonce})
+                    contract_txn = contract_ZKRandao.functions.revealRN(a_array, ap_array,
+                                                                        b_array_total, bp_array,
+                                                                        c_array, cp_array,
+                                                                        h_array,
+                                                                        k_array,
+                                                                        inputs_array,
+                                                                        BlockCurrentSecret).buildTransaction({'gas': 2500000, 'nonce': nonce})
+                    private_key = PrivKey
+                    signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
+                    txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
 
-            private_key = PrivKey
-            signed_txnDeposit = web3_ZKRandao.eth.account.signTransaction(contract_txn, private_key)
-            txt_hash = web3_ZKRandao.eth.sendRawTransaction(signed_txnDeposit.rawTransaction)
-
-            # Check transaction succes - received transactionreceipt
-            receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 200)
-            print("Transactions reveal mined")
-            print(receipt)
-            print(receipt.blockNumber)
-            indexRevealRN += 1
+                    # Check transaction succes - received transactionreceipt
+                    receipt = web3_ZKRandao.eth.waitForTransactionReceipt(txt_hash, 2000)
+                    print("Transactions reveal mined")
+                    print(receipt)
+                    print(receipt.blockNumber)
+                    indexRevealRN += 1
 
             # Save data reveal to csv file
             newRow = []
@@ -280,8 +281,14 @@ def main():
         TEMPindexBlockNumber = web3_ZKRandao.eth.blockNumber
         if TEMPindexBlockNumber > indexBlockNumber:
             indexBlockNumber += 1
-            block_filter = web3_ZKRandao.eth.getBlock(indexBlockNumber)
-            handle_event(block_filter)
+            x = 1
+            while x > 0:
+                try:
+                    block_filter = web3_ZKRandao.eth.getBlock(indexBlockNumber)
+                    x = 0
+                    handle_event(block_filter)
+                except:
+                    print("web3.exceptions.BlockNotFound")
     else:
         print("Error: Loop terminated")
 
