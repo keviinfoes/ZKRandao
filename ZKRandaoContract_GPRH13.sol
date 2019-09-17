@@ -1250,9 +1250,10 @@ contract ZKRandao is ERC20("ZKRandao", "ZKR", 18) {
             uint[2] memory h,
             uint[2] memory k,
             uint[9] memory input
-        ) public returns (bool r) {
-        uint blocknumber = block.number;
-        Proof memory proof;
+            uint blocknumber) 
+	public returns (bool r) {
+        
+	Proof memory proof;
         proof.a = Pairing.G1Point(a[0], a[1]);
         proof.a_p = Pairing.G1Point(a_p[0], a_p[1]);
         proof.b = Pairing.G2Point([b[0][0], b[0][1]], [b[1][0], b[1][1]]);
