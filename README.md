@@ -19,7 +19,20 @@ For a more detailed explantation click [here](https://link.medium.com/DNGjptQ5WY
 This repository contains an implementation of ZKRandao. Perform these steps to set up your own ZKRandao node to generate random numbers. This implementation is tested on Ubuntu.
 
 1. Install dependencies:
-    - [ZoKrates](https://zokrates.github.io/gettingstarted.html)
+    - [ZoKrates](https://zokrates.github.io/gettingstarted.html):
+    ```
+    git clone https://github.com/ZoKrates/ZoKrates
+cd ZoKrates
+sudo apt install cargo
+sudo apt remove rustc
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+sudo apt-get install cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
+sudo apt-get install libgmp3-dev
+cargo +nightly -Z package-features build --release --package zokrates_cli --features="libsnark"
+cd target/release
+export ZOKRATES_HOME=~/ZoKrates/zokrates_stdlib/stdlib
+```
     - [Web3.py](https://web3py.readthedocs.io/en/stable/quickstart.html) - `pip3 install web3`
 2. Copy this repository.
 3. Open the file ZKRandao_node.py and adjust the variables as indicated.
