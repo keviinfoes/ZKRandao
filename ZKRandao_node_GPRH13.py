@@ -195,13 +195,6 @@ def handle_event(block_filter):
 
         #Reveal secret on chain
         if indexSubmitRN > indexRevealRN and block_filter.number - BlockCurrentSecret > RevealRangeSubmitter:
-            print("start reveal")
-            print(CurrentSecret)
-            print(HashCurrent0)
-            print(HashCurrent1)
-            print(ExpectedRange)
-            print(BeginRangeCurrent)
-            print(CurrentSecretPlace)
             with cd(Path_provingKeyReveal):
                 subprocess.run([Path_ZoKratesEXECUTABLE, "compute-witness", "-a", "0", "0", "0", str(CurrentSecret),
                                 str(HashCurrent0), str(HashCurrent1), str(ExpectedRange), str(BeginRangeCurrent), str(CurrentSecretPlace)], stdout=subprocess.DEVNULL) #, stdout=subprocess.DEVNULL
